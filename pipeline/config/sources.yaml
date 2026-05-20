@@ -1,0 +1,68 @@
+sources:
+  - name: linkedin_data_engineer_zurich
+    enabled: true
+    endpoint: https://www.linkedin.com/voyager/api/voyagerJobsDashJobCards
+    params:
+      decorationId: com.linkedin.voyager.dash.deco.jobs.search.JobSearchCardsCollection-220
+      count: 50
+      q: jobSearch
+      query: (currentJobId:4301047908,origin:JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE,keywords:Data Engineer,locationUnion:(geoId:102436504),spellCorrectionEnabled:true)
+      start: 0
+    auth:
+      type: cookie
+      secret_name: linkedin_session_cookie
+    meta:
+      keywords: Data Engineer
+      location: Zurich
+      geo_id: 102436504
+
+  - name: linkedin_data_engineer_basel
+    enabled: true
+    endpoint: https://www.linkedin.com/voyager/api/voyagerJobsDashJobCards
+    params:
+      decorationId: com.linkedin.voyager.dash.deco.jobs.search.JobSearchCardsCollection-220
+      count: 50
+      q: jobSearch
+      query: (origin:JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE,keywords:Data Engineer,locationUnion:(geoId:100100349),spellCorrectionEnabled:true)
+      start: 0
+    auth:
+      type: cookie
+      secret_name: linkedin_session_cookie
+    meta:
+      keywords: Data Engineer
+      location: Basel
+      geo_id: 100100349
+
+  - name: linkedin_data_engineer_geneva
+    enabled: true
+    endpoint: https://www.linkedin.com/voyager/api/voyagerJobsDashJobCards
+    params:
+      decorationId: com.linkedin.voyager.dash.deco.jobs.search.JobSearchCardsCollection-220
+      count: 50
+      q: jobSearch
+      query: (origin:JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE,keywords:Data Engineer,locationUnion:(geoId:104406358),spellCorrectionEnabled:true)
+      start: 0
+    auth:
+      type: cookie
+      secret_name: linkedin_session_cookie
+    meta:
+      keywords: Data Engineer
+      location: Geneva
+      geo_id: 104406358
+
+  - name: linkedin_data_engineer_bern
+    enabled: true
+    endpoint: https://www.linkedin.com/voyager/api/voyagerJobsDashJobCards
+    params:
+      decorationId: com.linkedin.voyager.dash.deco.jobs.search.JobSearchCardsCollection-220
+      count: 50
+      q: jobSearch
+      query: (origin:JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE,keywords:Data Engineer,locationUnion:(geoId:105825954),spellCorrectionEnabled:true)
+      start: 0
+    auth:
+      type: cookie
+      secret_name: linkedin_session_cookie
+    meta:
+      keywords: Data Engineer
+      location: Bern
+      geo_id: 105825954
