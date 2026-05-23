@@ -9,10 +9,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "mguzman-portfolio"
-    key            = "terraform-state/terraform.tfstate"
-    region         = "eu-west-3"
-    encrypt        = true
+    bucket  = "mguzman-portfolio"
+    key     = "terraform-state/terraform.tfstate"
+    region  = "eu-west-3"
+    encrypt = true
   }
 }
 
