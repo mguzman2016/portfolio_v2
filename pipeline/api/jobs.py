@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
+from loguru import logger
 from api.client import get
 
 
@@ -19,7 +19,7 @@ def fetch_job_ids(url: str, headers: dict) -> list[int]:
 
     while True:
         paginated_url = _set_pagination(url, count=step, start=start)
-        print(f"  Fetching job IDs, offset={start}")
+        logger.info(f"Fetching job IDs, offset={start}")
         response = get(paginated_url, headers)
 
         data = response.get("data", {})

@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 import boto3
+from loguru import logger
 
 
 @dataclass
@@ -22,5 +23,5 @@ def upload_jsonl(local_path: Path, params: UploadParams) -> str:
     s3 = boto3.client("s3", region_name=params.region)
     key = _build_s3_key(params.prefix, params.city, params.search)
     s3.upload_file(str(local_path), params.bucket, key)
-    print(f"  Uploaded to s3://{params.bucket}/{key}")
+    logger.info(f"Uploaded to s3://{params.bucket}/{key}")
     return key

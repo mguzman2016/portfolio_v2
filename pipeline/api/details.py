@@ -12,6 +12,7 @@ DETAIL_URL = (
 
 _COMPANY_TYPE = "com.linkedin.voyager.organization.Company"
 _FOLLOWING_INFO_TYPE = "com.linkedin.voyager.common.FollowingInfo"
+_TITLE_TYPE = "com.linkedin.voyager.jobs.shared.Title"
 
 
 @dataclass
@@ -20,7 +21,9 @@ class JobDetail:
     company_information: dict
 
 
-def _clean_string(value: str) -> str:
+def _clean_string(value: str | None) -> str:
+    if value is None:
+        return "No Data Available"
     return value.encode("utf-8", "ignore").decode("utf-8")
 
 
@@ -75,6 +78,12 @@ def fetch_job_detail(job_id: int, headers: dict) -> JobDetail:
     job = {}
     job["job_id"] = detail.get("jobPostingId", -1)
     job["job_name"] = detail.get("title", "No Data Available")
+    title_ref = detail.get("*standardizedTitleResolutionResult")
+    title_entry = next(
+        (i for i in included if i.get("entityUrn") == title_ref and i.get("$type") == _TITLE_TYPE),
+        {},
+    )
+    job["standardized_name"] = title_entry.get("localizedName", "No Data Available")
     job["job_url"] = detail.get("jobPostingUrl", "No Data Available")
     job["job_description"] = _clean_string(
         detail.get("description", {}).get("text", "No Data Available")
