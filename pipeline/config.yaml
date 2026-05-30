@@ -1,0 +1,16 @@
+searches:
+  - city: zurich
+    search: data_engineer
+    url: "https://www.linkedin.com/voyager/api/voyagerJobsDashJobCards?decorationId=com.linkedin.voyager.dash.deco.jobs.search.JobSearchCardsCollection-220&count=50&q=jobSearch&query=(currentJobId:4301047908,origin:JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE,keywords:Data%20Engineer,locationUnion:(geoId:102436504),spellCorrectionEnabled:true)&start=0"
+
+  - city: basel
+    search: data_engineer
+    url: "https://www.linkedin.com/voyager/api/voyagerJobsDashJobCards?decorationId=com.linkedin.voyager.dash.deco.jobs.search.JobSearchCardsCollection-220&count=50&q=jobSearch&query=(origin:JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE,keywords:Data%20Engineer,locationUnion:(geoId:100100349),spellCorrectionEnabled:true)&start=0"
+
+  - city: geneva
+    search: data_engineer
+    url: "https://www.linkedin.com/voyager/api/voyagerJobsDashJobCards?decorationId=com.linkedin.voyager.dash.deco.jobs.search.JobSearchCardsCollection-220&count=50&q=jobSearch&query=(origin:JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE,keywords:Data%20Engineer,locationUnion:(geoId:104406358),spellCorrectionEnabled:true)&start=0"
+
+  - city: bern
+    search: data_engineer
+    url: "https://www.linkedin.com/voyager/api/voyagerJobsDashJobCards?decorationId=com.linkedin.voyager.dash.deco.jobs.search.JobSearchCardsCollection-220&count=50&q=jobSearch&query=(origin:JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE,keywords:Data%20Engineer,locationUnion:(geoId:105825954),spellCorrectionEnabled:true)&start=0"
