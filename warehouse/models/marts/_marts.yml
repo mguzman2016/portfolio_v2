@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: dim_company
+    description: "One row per company. Most recent snapshot of descriptive attributes."
+    columns:
+      - name: company_key
+        tests: [unique, not_null]
+      - name: src_id
+        tests: [unique, not_null]
+
+  - name: dim_date
+    description: "Date spine covering the full ingestion window."
+    columns:
+      - name: date_key
+        tests: [unique, not_null]
+
+  - name: dim_experience_level
+    description: "Static lookup for LinkedIn experience level labels."
+    columns:
+      - name: experience_level_id
+        tests: [unique, not_null]
+
+  - name: dim_job
+    description: "One row per unique job posting. Owns all descriptive job attributes."
+    columns:
+      - name: job_key
+        tests: [unique, not_null]
+      - name: src_id
+        tests: [unique, not_null]
+
+  - name: dim_job_type
+    description: "Static lookup for LinkedIn employment type labels."
+    columns:
+      - name: job_type_id
+        tests: [unique, not_null]
+
+  - name: fct_company_snapshots
+    description: >
+      One row per company per day. Tracks company_staff_count and company_follower_count
+      over time. Grain: company_key x date_key.
+    columns:
+      - name: company_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_company')
+              field: company_key
+
+  - name: fct_job_postings
+    description: >
+      One row per unique job posting. Grain is job_id (deduplicated).
+      Salary columns are nullable — only ~10-15% of postings include salary data.
+    columns:
+      - name: job_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_job')
+              field: job_key
+      - name: company_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_company')
+              field: company_key

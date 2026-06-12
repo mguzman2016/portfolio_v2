@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: int_companies
+    description: >
+      One row per company_id x snapshot_date. Within a day, the latest ingestion wins.
+      Feeds both dim_company (latest attributes) and fct_company_snapshots (metric history).
+
+  - name: int_job_postings_deduped
+    description: >
+      One row per job_id (latest ingestion wins). Resolves the fact that the same
+      job can be ingested multiple times across runs.

@@ -1,0 +1,22 @@
+jobs_warehouse:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "data/warehouse.duckdb"
+      extensions:
+        - httpfs
+      settings:
+        s3_region: eu-west-3
+        s3_access_key_id: "{{ env_var('AWS_ACCESS_KEY_ID') }}"
+        s3_secret_access_key: "{{ env_var('AWS_SECRET_ACCESS_KEY') }}"
+
+    prod:
+      type: duckdb
+      path: "data/warehouse.duckdb"
+      extensions:
+        - httpfs
+      settings:
+        s3_region: eu-west-3
+        s3_access_key_id: "{{ env_var('AWS_ACCESS_KEY_ID') }}"
+        s3_secret_access_key: "{{ env_var('AWS_SECRET_ACCESS_KEY') }}"
