@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_job_postings
+    description: >
+      Lightly cleaned raw records from S3. One row per job posting per ingestion run.
+      Types cast, pipe-separated fields split into arrays, partition columns extracted.
+    columns:
+      - name: job_id
+        description: "LinkedIn job posting ID — not unique here (same job re-ingested across runs)"
+        tests:
+          - not_null
+      - name: company_id
+        tests:
+          - not_null
+      - name: ingested_city
+        description: "City from the S3 partition path"
+      - name: ingested_search
+        description: "Search term from the S3 partition path"
+      - name: ingested_at
+        description: "date_hour from the S3 partition path, parsed as timestamp"

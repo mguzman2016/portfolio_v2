@@ -1,0 +1,47 @@
+version: 2
+
+sources:
+  - name: linkedin_raw
+    description: "Raw LinkedIn job postings ingested from S3 as JSONL files"
+    tables:
+      - name: job_postings
+        description: >
+          One record per job posting, containing merged job + company data.
+          Partitioned in S3 by city / search / date_hour.
+          Read via DuckDB httpfs: read_json_auto('s3://mguzman-portfolio/linkedin_data/**/*.jsonl')
+        columns:
+          # Job fields
+          - name: job_id
+            description: "LinkedIn job posting ID"
+          - name: job_name
+            description: "Raw job title as listed"
+          - name: standardized_name
+            description: "LinkedIn standardized title"
+          - name: job_url
+          - name: job_description
+            description: "Full text of the job posting"
+          - name: job_type
+            description: "Employment status (Full-time, Part-time, Contract, etc.)"
+          - name: job_functions
+            description: "Pipe-separated list of job functions"
+          - name: job_experience_level
+            description: "Experience level (Entry, Mid-Senior, Director, etc.)"
+          - name: job_views
+          - name: job_min_salary
+            description: "Minimum salary (optional)"
+          - name: job_max_salary
+            description: "Maximum salary (optional)"
+          - name: job_pay_period
+            description: "Pay period for salary (optional)"
+          # Company fields
+          - name: company_id
+          - name: company_name
+          - name: company_description
+          - name: company_staff_count
+          - name: company_url
+          - name: company_industries
+            description: "Pipe-separated list of industries"
+          - name: company_follower_count
+          - name: company_image_url
+        config:
+          external_location: "read_json_auto('s3://mguzman-portfolio/linkedin_data/**/*.jsonl', hive_partitioning=true)"
