@@ -14,6 +14,9 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
+on-run-start:
+  - "CALL load_aws_credentials();"
+
 models:
   jobs_warehouse:
     staging:

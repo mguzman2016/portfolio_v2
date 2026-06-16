@@ -1,4 +1,8 @@
-IMAGE_NAME := jobs-warehouse
+IMAGE_NAME   := jobs-warehouse
+ACCOUNT_ID   := 288761770181
+REGION       := eu-west-3
+ECR_REGISTRY := $(ACCOUNT_ID).dkr.ecr.$(REGION).amazonaws.com
+ECR_IMAGE    := $(ECR_REGISTRY)/mguzman-portfolio/warehouse:latest
 
 install:
 	pip install -r requirements.txt
@@ -9,6 +13,13 @@ run:
 
 docker-build:
 	docker build -t $(IMAGE_NAME) .
+
+ecr-login:
+	aws ecr get-login-password --region $(REGION) | docker login --username AWS --password-stdin $(ECR_REGISTRY)
+
+push: ecr-login
+	docker build -t $(ECR_IMAGE) .
+	docker push $(ECR_IMAGE)
 
 download-db:
 	aws s3 cp s3://mguzman-portfolio/linkedin_warehouse/warehouse.duckdb data/warehouse.duckdb
