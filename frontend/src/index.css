@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #faf9f5;
+  --foreground: #14130f;
+  --border: #d8d3c6;
+  --border-subtle: #ede9de;
+  --hover: #f3f0e7;
+  --muted: #6e6a60;
+  --muted-strong: #45423b;
+  --muted-body: #55524a;
+  --muted-copy: #2c2a25;
+  --faint: #a9a497;
+  --icon-muted: #c4bfb2;
+  --accent: #d2451e;
+  --accent-tint: #f6eee9;
+  --card: #ffffff;
+}
+
+.dark {
+  --background: #14130f;
+  --foreground: #faf9f5;
+  --border: #3d392e;
+  --border-subtle: #29261e;
+  --hover: #201d16;
+  --muted: #9a9686;
+  --muted-strong: #c7c2b1;
+  --muted-body: #b0ab9a;
+  --muted-copy: #ddd8c8;
+  --faint: #6b6858;
+  --icon-muted: #4a473d;
+  --accent: #d2451e;
+  --accent-tint: #2b1d16;
+  --card: #1d1a13;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-hover: var(--hover);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-muted-body: var(--muted-body);
+  --color-muted-copy: var(--muted-copy);
+  --color-faint: var(--faint);
+  --color-icon-muted: var(--icon-muted);
+  --color-accent: var(--accent);
+  --color-accent-tint: var(--accent-tint);
+  --color-card: var(--card);
+
+  --font-sans: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent);
+}
+
+.u-rule {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+.u-hair {
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+  margin: 0;
+}
+.u-row:hover {
+  background: var(--hover);
+}
+.u-lnk {
+  border-bottom: 1px solid var(--border);
+}
+.u-lnk:hover {
+  border-bottom-color: var(--accent);
+}
