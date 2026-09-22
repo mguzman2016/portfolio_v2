@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
-import Home from "@/pages/Home"
-import Explorer from "@/pages/Explorer"
-import Cv from "@/pages/Cv"
+import Home from "@/pages/Home/Home"
+import Explorer from "@/pages/Explorer/Explorer"
+import Cv from "@/pages/Cv/Cv"
 
 export default function App() {
   return (
