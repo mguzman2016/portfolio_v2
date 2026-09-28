@@ -1,87 +1,94 @@
 import { Link } from "react-router-dom"
 import { Masthead } from "@/components/layout/Masthead"
 import { Footer } from "@/components/layout/Footer"
-import { titleCounts, cities, movers, pipelineStages } from "./data/data"
+import { Page } from "@/components/layout/Page"
+import { cn } from "@/lib/utils"
+import { headline, titleCounts, cities, movers, pipelineStages } from "./data/data"
 
 export default function Home() {
   return (
-    <div className="max-w-[1280px] mx-auto px-[72px]">
+    <Page>
       <Masthead active="index" />
 
       {/* HERO */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-14 pb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-6 gap-y-12 pt-14 pb-16">
         <div className="lg:col-span-8">
-          <div className="font-mono text-[11px] tracking-[0.16em] uppercase text-accent mb-7">
+          <div className="font-mono text-label tracking-caps uppercase text-accent mb-7">
             A standing survey of the Swiss engineering market
           </div>
-          <h1 className="m-0 text-[76px] leading-[0.94] tracking-[-0.035em] font-semibold max-w-[15ch]">
+          <h1 className="m-0 text-display max-w-[15ch]">
             Every engineering role posted in four Swiss cities, collected on a schedule.
           </h1>
-          <p className="font-serif text-[21px] leading-[1.5] text-muted-strong max-w-[52ch] mt-8">
+          <p className="font-serif text-lede text-muted-strong max-w-[52ch] mt-8">
             I scrape LinkedIn on a cadence, land the raw JSON in S3, and model it into a star
             schema with dbt and DuckDB. What follows is the whole warehouse, opened up — the
             counts, the gaps, and the parts that are still honestly incomplete.
           </p>
         </div>
-        <div className="lg:col-span-4 flex flex-col pt-1.5">
+        <div className="lg:col-span-4 flex flex-col lg:pt-1.5">
           <hr className="u-rule" />
-          <div className="flex justify-between py-3.5 font-mono text-xs">
-            <span className="text-muted">LAST RUN</span>
-            <span>2026-06-07 20:00 UTC</span>
+          <div className="flex justify-between gap-4 py-3.5 font-mono text-xs">
+            <span className="text-muted shrink-0">LAST RUN</span>
+            <span className="text-right">2026-06-07 20:00 UTC</span>
           </div>
           <hr className="u-hair" />
-          <div className="flex justify-between py-3.5 font-mono text-xs">
-            <span className="text-muted">CADENCE</span>
-            <span>EventBridge → ECS Fargate</span>
+          <div className="flex justify-between gap-4 py-3.5 font-mono text-xs">
+            <span className="text-muted shrink-0">CADENCE</span>
+            <span className="text-right">EventBridge → ECS Fargate</span>
           </div>
           <hr className="u-hair" />
-          <div className="flex justify-between py-3.5 font-mono text-xs">
-            <span className="text-muted">DBT TESTS</span>
-            <span className="text-accent">22 / 22 passing</span>
+          <div className="flex justify-between gap-4 py-3.5 font-mono text-xs">
+            <span className="text-muted shrink-0">DBT TESTS</span>
+            <span className="text-accent text-right">22 / 22 passing</span>
           </div>
           <hr className="u-rule" />
-          <div className="flex items-center gap-2.5 pt-5.5 font-mono text-[11px] tracking-[0.04em] text-muted-strong flex-wrap">
-            <span className="border border-border px-2.5 py-[5px]">LinkedIn</span>
+          <div className="flex items-center gap-2.5 pt-5.5 font-mono text-label tracking-[0.04em] text-muted-strong flex-wrap">
+            <span className="border border-border px-2.5 py-1.25">LinkedIn</span>
             <span className="text-faint">→</span>
-            <span className="border border-border px-2.5 py-[5px]">S3 JSONL</span>
+            <span className="border border-border px-2.5 py-1.25">S3 JSONL</span>
             <span className="text-faint">→</span>
-            <span className="border border-border px-2.5 py-[5px]">DuckDB</span>
+            <span className="border border-border px-2.5 py-1.25">DuckDB</span>
             <span className="text-faint">→</span>
-            <span className="border border-accent text-accent px-2.5 py-[5px]">dbt marts</span>
+            <span className="border border-accent text-accent px-2.5 py-1.25">dbt marts</span>
           </div>
         </div>
       </div>
 
       {/* NUMBERS BAND */}
+      {/* Two up on small screens, four up from lg. A cell's horizontal padding is
+          0 on the side where it meets the page edge and 8 where it meets a
+          neighbour, so the dividers stay centred in both layouts. */}
       <hr className="u-rule" />
-      <div className="grid grid-cols-4">
-        <div className="py-[34px] pr-8 border-r border-border">
-          <div className="text-[68px] leading-none tracking-[-0.04em] font-medium tabular-nums">176</div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted mt-3">Unique postings</div>
-        </div>
-        <div className="py-[34px] px-8 border-r border-border">
-          <div className="text-[68px] leading-none tracking-[-0.04em] font-medium tabular-nums">107</div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted mt-3">Companies tracked</div>
-        </div>
-        <div className="py-[34px] px-8 border-r border-border">
-          <div className="text-[68px] leading-none tracking-[-0.04em] font-medium tabular-nums">4</div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted mt-3">Cities surveyed</div>
-        </div>
-        <div className="py-[34px] pl-8">
-          <div className="text-[68px] leading-none tracking-[-0.04em] font-medium tabular-nums text-accent">
-            10.8<span className="text-[34px]">%</span>
+      <div className="grid grid-cols-2 lg:grid-cols-4">
+        {headline.map((stat, i) => (
+          <div
+            key={stat.label}
+            className={cn(
+              "py-8 border-border",
+              i % 2 === 0 ? "pr-5 sm:pr-8" : "pl-5 sm:pl-8 border-l",
+              i < 2 && "border-b lg:border-b-0",
+              i === 1 && "lg:pr-8",
+              i === 2 && "lg:pl-8 lg:border-l"
+            )}
+          >
+            <div
+              className={cn("text-stat tabular-nums", stat.accent && "text-accent")}
+            >
+              {stat.value}
+              {stat.suffix && <span className="text-stat-suffix">{stat.suffix}</span>}
+            </div>
+            <div className="label-caps text-muted mt-3">{stat.label}</div>
           </div>
-          <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted mt-3">Disclose salary</div>
-        </div>
+        ))}
       </div>
       <hr className="u-rule" />
 
       {/* CITY SPLIT + TITLES */}
-      <div className="grid grid-cols-12 gap-6 pt-16">
-        <div className="col-span-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-6 gap-y-12 pt-16">
+        <div className="lg:col-span-5">
           <div className="flex items-baseline gap-3 mb-1.5">
-            <span className="font-mono text-[11px] text-accent">01</span>
-            <h2 className="m-0 text-[30px] tracking-[-0.02em] font-semibold">Where the roles are</h2>
+            <span className="font-mono text-label text-accent">01</span>
+            <h2 className="m-0 text-section">Where the roles are</h2>
           </div>
           <p className="font-serif text-base leading-[1.55] text-muted-body mb-7 max-w-[40ch]">
             Zürich carries half the market on its own. Bern, the federal capital, posts fewer
@@ -91,15 +98,17 @@ export default function Home() {
             <hr className="u-hair" />
             {cities.map((city) => (
               <div key={city.name}>
-                <div className="flex items-center gap-4 py-[15px]">
-                  <div className="w-[68px] text-[15px] font-medium">{city.name}</div>
+                <div className="flex items-center gap-4 py-3.75">
+                  <div className="w-17 text-body-sm font-medium">{city.name}</div>
                   <div className="grow h-2.5 bg-border-subtle">
                     <div
                       className={city.accent ? "h-2.5 bg-accent" : "h-2.5 bg-foreground"}
                       style={{ width: `${city.pct}%` }}
                     />
                   </div>
-                  <div className="w-[62px] text-right font-mono text-[13px] tabular-nums">{city.count}</div>
+                  <div className="w-14 text-right font-mono text-meta tabular-nums">
+                    {city.count}
+                  </div>
                 </div>
                 <hr className="u-hair" />
               </div>
@@ -107,12 +116,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="col-span-6 col-start-7">
+        <div className="lg:col-span-6 lg:col-start-7">
           <div className="flex items-baseline gap-3 mb-1.5">
-            <span className="font-mono text-[11px] text-accent">02</span>
-            <h2 className="m-0 text-[30px] tracking-[-0.02em] font-semibold">
-              What they are actually called
-            </h2>
+            <span className="font-mono text-label text-accent">02</span>
+            <h2 className="m-0 text-section">What they are actually called</h2>
           </div>
           <p className="font-serif text-base leading-[1.55] text-muted-body mb-7 max-w-[46ch]">
             LinkedIn standardises every title. Under the noise of "Principal Software Engineer —
@@ -123,25 +130,26 @@ export default function Home() {
             {titleCounts.map((row) => (
               <div key={row.rank}>
                 <div
-                  className={
-                    "u-row flex items-baseline gap-4 px-1 py-[11px]" +
-                    (row.active ? " bg-accent-tint" : "")
-                  }
+                  className={cn(
+                    "u-row flex items-baseline gap-4 px-1 py-2.75",
+                    row.active && "bg-accent-tint"
+                  )}
                 >
                   <span
-                    className={
-                      "font-mono text-[11px] w-[22px] " + (row.active ? "text-accent" : "text-faint")
-                    }
+                    className={cn(
+                      "font-mono text-label w-5.5 shrink-0",
+                      row.active ? "text-accent" : "text-faint"
+                    )}
                   >
                     {row.rank}
                   </span>
-                  <span className={"grow text-base" + (row.active ? " text-accent font-medium" : "")}>
+                  <span
+                    className={cn("grow text-base", row.active && "text-accent font-medium")}
+                  >
                     {row.title}
                   </span>
                   <span
-                    className={
-                      "font-mono text-[13px] tabular-nums" + (row.active ? " text-accent" : "")
-                    }
+                    className={cn("font-mono text-meta tabular-nums", row.active && "text-accent")}
                   >
                     {row.count}
                   </span>
@@ -150,7 +158,10 @@ export default function Home() {
               </div>
             ))}
             <div className="pt-3 px-1">
-              <a href="#" className="u-lnk font-mono text-[11px] tracking-[0.1em] uppercase text-accent !border-accent">
+              <a
+                href="#"
+                className="u-lnk font-mono text-label tracking-[0.1em] uppercase text-accent border-accent"
+              >
                 See all 66 standardised titles →
               </a>
             </div>
@@ -159,14 +170,12 @@ export default function Home() {
       </div>
 
       {/* SALARY ESSAY */}
-      <div className="mt-[88px] border-t-[3px] border-foreground border-b border-border">
-        <div className="grid grid-cols-12 gap-6 pt-12 pb-14">
-          <div className="col-span-5">
+      <div className="mt-section border-t-[3px] border-foreground border-b border-border">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-6 gap-y-10 pt-12 pb-14">
+          <div className="lg:col-span-5">
             <div className="flex items-baseline gap-3 mb-5">
-              <span className="font-mono text-[11px] text-accent">03</span>
-              <h2 className="m-0 text-[30px] tracking-[-0.02em] font-semibold">
-                The salary column is mostly empty
-              </h2>
+              <span className="font-mono text-label text-accent">03</span>
+              <h2 className="m-0 text-section">The salary column is mostly empty</h2>
             </div>
             <p className="font-serif text-lg leading-[1.55] text-muted-strong max-w-[42ch]">
               Nineteen of a hundred and seventy-six postings publish a number. That is not a bug
@@ -177,33 +186,27 @@ export default function Home() {
               So the site shows the nineteen, labelled as nineteen.
             </p>
           </div>
-          <div className="col-span-6 col-start-7">
-            <div className="flex gap-[3px] h-[34px] mb-2.5">
+          <div className="lg:col-span-6 lg:col-start-7">
+            <div className="flex gap-[3px] h-8.5 mb-2.5">
               <div className="bg-accent" style={{ width: "10.8%" }} />
               <div className="grow bg-border-subtle" />
             </div>
-            <div className="flex justify-between font-mono text-[11px] tracking-[0.06em] text-muted mb-10">
+            <div className="flex justify-between font-mono text-label tracking-meta text-muted mb-10">
               <span className="text-accent">19 WITH PAY</span>
               <span>157 WITHOUT</span>
             </div>
-            <div className="grid grid-cols-2 border-t border-border">
-              <div className="py-6 pr-6 border-r border-border">
-                <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted">
-                  Hourly · 17 postings
-                </div>
-                <div className="text-[40px] tracking-[-0.03em] font-medium mt-3.5 tabular-nums">30 – 80</div>
-                <div className="font-serif text-[15px] text-muted-body mt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 border-t border-border">
+              <div className="py-6 border-b border-border sm:pr-6 sm:border-b-0 sm:border-r">
+                <div className="label-caps text-muted">Hourly · 17 postings</div>
+                <div className="text-stat-sm mt-3.5 tabular-nums">30 – 80</div>
+                <div className="font-serif text-body-sm text-muted-body mt-2">
                   median band, USD/hr · range 15 – 130
                 </div>
               </div>
-              <div className="py-6 pl-6">
-                <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted">
-                  Yearly · 2 postings
-                </div>
-                <div className="text-[40px] tracking-[-0.03em] font-medium mt-3.5 tabular-nums">
-                  110k – 185k
-                </div>
-                <div className="font-serif text-[15px] text-muted-body mt-2">
+              <div className="py-6 sm:pl-6">
+                <div className="label-caps text-muted">Yearly · 2 postings</div>
+                <div className="text-stat-sm mt-3.5 tabular-nums">110k – 185k</div>
+                <div className="font-serif text-body-sm text-muted-body mt-2">
                   two data points. Shown, not averaged.
                 </div>
               </div>
@@ -213,17 +216,18 @@ export default function Home() {
       </div>
 
       {/* COMPANY MOVERS */}
-      <div className="grid grid-cols-12 gap-6 pt-18">
-        <div className="col-span-3">
+      {/* Secondary columns drop out as the viewport narrows; company and Δ always survive. */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-6 gap-y-10 pt-section">
+        <div className="lg:col-span-3">
           <div className="flex items-baseline gap-3 mb-3.5">
-            <span className="font-mono text-[11px] text-accent">04</span>
-            <h2 className="m-0 text-[30px] tracking-[-0.02em] font-semibold">Companies, moving</h2>
+            <span className="font-mono text-label text-accent">04</span>
+            <h2 className="m-0 text-section">Companies, moving</h2>
           </div>
           <p className="font-serif text-base leading-[1.55] text-muted-body">
             Every run snapshots headcount and follower count. Thirteen companies have been caught
             twice or more, so this table grows with the pipeline rather than with the page.
           </p>
-          <div className="font-mono text-[11px] text-muted mt-5.5 border-t border-border pt-3 leading-[1.7]">
+          <div className="font-mono text-label text-muted mt-5.5 border-t border-border pt-3 leading-[1.7]">
             SOURCE
             <br />
             fct_company_snapshots
@@ -231,27 +235,29 @@ export default function Home() {
             24 MAY → 07 JUN 2026
           </div>
         </div>
-        <div className="col-span-9">
-          <div className="flex gap-4 px-1 pb-2.5 font-mono text-[10px] tracking-[0.14em] uppercase text-muted">
+        <div className="lg:col-span-9">
+          <div className="flex gap-4 px-1 pb-2.5 label-micro text-muted">
             <span className="grow">Company</span>
-            <span className="w-[190px]">Industry</span>
-            <span className="w-[96px] text-right">Headcount</span>
-            <span className="w-[110px] text-right">Followers</span>
-            <span className="w-[104px] text-right">Δ 14 days</span>
+            <span className="hidden lg:block w-[11.875rem]">Industry</span>
+            <span className="hidden sm:block w-24 text-right">Headcount</span>
+            <span className="hidden md:block w-27.5 text-right">Followers</span>
+            <span className="w-26 text-right">Δ 14 days</span>
           </div>
           <hr className="u-rule" />
           {movers.map((company, i) => (
             <div key={company.name}>
-              <div className="u-row flex items-baseline gap-4 px-1 py-[13px]">
-                <span className="grow text-base">{company.name}</span>
-                <span className="w-[190px] text-[13px] text-muted">{company.industry}</span>
-                <span className="w-[96px] text-right font-mono text-[13px] tabular-nums">
+              <div className="u-row flex items-baseline gap-4 px-1 py-3.25">
+                <span className="grow min-w-0 text-base">{company.name}</span>
+                <span className="hidden lg:block w-[11.875rem] text-meta text-muted">
+                  {company.industry}
+                </span>
+                <span className="hidden sm:block w-24 text-right font-mono text-meta tabular-nums">
                   {company.headcount}
                 </span>
-                <span className="w-[110px] text-right font-mono text-[13px] tabular-nums">
+                <span className="hidden md:block w-27.5 text-right font-mono text-meta tabular-nums">
                   {company.followers}
                 </span>
-                <span className="w-[104px] text-right font-mono text-[13px] tabular-nums text-accent">
+                <span className="w-26 text-right font-mono text-meta tabular-nums text-accent">
                   {company.delta}
                 </span>
               </div>
@@ -262,28 +268,29 @@ export default function Home() {
       </div>
 
       {/* PIPELINE / LINEAGE */}
-      <div className="mt-[88px]">
+      <div className="mt-section">
         <div className="flex items-baseline gap-3 mb-2">
-          <span className="font-mono text-[11px] text-accent">05</span>
-          <h2 className="m-0 text-[30px] tracking-[-0.02em] font-semibold">How it is built</h2>
+          <span className="font-mono text-label text-accent">05</span>
+          <h2 className="m-0 text-section">How it is built</h2>
         </div>
-        <p className="font-serif text-[17px] leading-[1.55] text-muted-body mb-8 max-w-[62ch]">
+        <p className="font-serif text-body-lg text-muted-body mb-8 max-w-[62ch]">
           Four layers, ten models, one DuckDB file that lives in S3 between runs. Click any model
           to read its SQL on GitHub.
         </p>
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {pipelineStages.map((stage) => (
             <div
               key={stage.step}
-              className={
-                "pt-4 border-t-[3px] " + (stage.accent ? "border-accent" : "border-foreground")
-              }
+              className={cn(
+                "pt-4 border-t-[3px]",
+                stage.accent ? "border-accent" : "border-foreground"
+              )}
             >
               <div
-                className={
-                  "font-mono text-[10px] tracking-[0.16em] uppercase mb-4 " +
-                  (stage.accent ? "text-accent" : "text-muted")
-                }
+                className={cn(
+                  "font-mono text-micro tracking-caps uppercase mb-4",
+                  stage.accent ? "text-accent" : "text-muted"
+                )}
               >
                 {stage.step}
               </div>
@@ -291,10 +298,10 @@ export default function Home() {
                 {stage.models.map((model) => (
                   <div
                     key={model}
-                    className={
-                      "border px-3.5 py-3 font-mono text-xs " +
-                      (stage.accent ? "border-accent text-accent" : "border-border")
-                    }
+                    className={cn(
+                      "border px-3.5 py-3 font-mono text-xs break-words",
+                      stage.accent ? "border-accent text-accent" : "border-border"
+                    )}
                   >
                     {model}
                   </div>
@@ -307,24 +314,24 @@ export default function Home() {
       </div>
 
       {/* CV CTA */}
-      <div className="mt-[88px] border-t-[3px] border-foreground pt-11">
-        <div className="grid grid-cols-12 gap-6 items-end">
-          <div className="col-span-7">
-            <h2 className="m-0 text-[46px] leading-[1.02] tracking-[-0.035em] font-semibold max-w-[17ch]">
+      <div className="mt-section border-t-[3px] border-foreground pt-11">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-6 gap-y-8 items-end">
+          <div className="lg:col-span-7">
+            <h2 className="m-0 text-display-xs max-w-[17ch]">
               If you got this far, you probably want the CV.
             </h2>
           </div>
-          <div className="col-span-4 col-start-9 flex flex-col gap-3">
+          <div className="lg:col-span-4 lg:col-start-9 flex flex-col gap-3">
             <Link
               to="/cv"
-              className="flex items-center justify-between bg-foreground text-background px-5.5 py-4.5 font-mono text-xs tracking-[0.12em] uppercase"
+              className="flex items-center justify-between gap-4 bg-foreground text-background px-5.5 py-4.5 font-mono text-xs tracking-button uppercase"
             >
               <span>Read the CV</span>
               <span>→</span>
             </Link>
             <a
               href="#"
-              className="flex items-center justify-between border border-foreground px-5.5 py-4.5 font-mono text-xs tracking-[0.12em] uppercase"
+              className="flex items-center justify-between gap-4 border border-foreground px-5.5 py-4.5 font-mono text-xs tracking-button uppercase"
             >
               <span>Download PDF</span>
               <span>↓</span>
@@ -334,6 +341,6 @@ export default function Home() {
       </div>
 
       <Footer />
-    </div>
+    </Page>
   )
 }

@@ -1,3 +1,10 @@
+const headline: { value: string; suffix?: string; label: string; accent?: boolean }[] = [
+  { value: "176", label: "Unique postings" },
+  { value: "107", label: "Companies tracked" },
+  { value: "4", label: "Cities surveyed" },
+  { value: "10.8", suffix: "%", label: "Disclose salary", accent: true },
+]
+
 const titleCounts: { rank: string; title: string; count: number; active?: boolean }[] = [
   { rank: "01", title: "Software Engineer", count: 35 },
   { rank: "02", title: "DevOps Engineer", count: 13 },
@@ -53,4 +60,4 @@ const pipelineStages = [
   },
 ]
 
-export { titleCounts, cities, movers, pipelineStages }
+export { headline, titleCounts, cities, movers, pipelineStages }

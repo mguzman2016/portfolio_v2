@@ -57,37 +57,170 @@
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
-body {
-  @apply bg-background text-foreground;
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  text-wrap: pretty;
+/* ---------------------------------------------------------------------------
+   Design tokens.
+
+   Every fluid value interpolates over the same viewport range, 360px → 1280px,
+   so type, gutters and section rhythm all grow in step. Below 360px the min
+   holds, above 1280px the max holds and the shell stops growing anyway.
+
+   Each --text-* token carries its own leading / tracking / weight, so one
+   utility replaces the `text-[76px] leading-[0.94] tracking-[-0.035em]
+   font-semibold` stacks these pages used to repeat.
+--------------------------------------------------------------------------- */
+@theme {
+  --container-page: 80rem;
+
+  --spacing-gutter: clamp(1.25rem, 5.65vw - 0.02rem, 4.5rem); /* 20 → 72 */
+  --spacing-section: clamp(3rem, 2.02rem + 4.35vw, 5.5rem); /* 48 → 88 */
+  --spacing-block: clamp(2.5rem, 1.72rem + 3.48vw, 4.5rem); /* 40 → 72 */
+
+  /* Display — page titles */
+  --text-display-xl: clamp(2.75rem, 1.82rem + 4.13vw, 5.125rem); /* 44 → 82 */
+  --text-display-xl--line-height: 0.92;
+  --text-display-xl--letter-spacing: -0.04em;
+  --text-display-xl--font-weight: 600;
+
+  --text-display: clamp(2.5rem, 1.62rem + 3.91vw, 4.75rem); /* 40 → 76 */
+  --text-display--line-height: 0.94;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 600;
+
+  --text-display-sm: clamp(2.125rem, 1.68rem + 1.96vw, 3.25rem); /* 34 → 52 */
+  --text-display-sm--line-height: 1;
+  --text-display-sm--letter-spacing: -0.035em;
+  --text-display-sm--font-weight: 600;
+
+  --text-display-xs: clamp(1.875rem, 1.48rem + 1.74vw, 2.875rem); /* 30 → 46 */
+  --text-display-xs--line-height: 1.02;
+  --text-display-xs--letter-spacing: -0.035em;
+  --text-display-xs--font-weight: 600;
+
+  /* Headings */
+  --text-section: clamp(1.5rem, 1.35rem + 0.65vw, 1.875rem); /* 24 → 30 */
+  --text-section--line-height: 1.1;
+  --text-section--letter-spacing: -0.02em;
+  --text-section--font-weight: 600;
+
+  --text-section-sm: clamp(1.375rem, 1.28rem + 0.43vw, 1.625rem); /* 22 → 26 */
+  --text-section-sm--line-height: 1.15;
+  --text-section-sm--letter-spacing: -0.02em;
+  --text-section-sm--font-weight: 600;
+
+  --text-subsection: clamp(1.375rem, 1.25rem + 0.54vw, 1.6875rem); /* 22 → 27 */
+  --text-subsection--line-height: 1.12;
+  --text-subsection--letter-spacing: -0.025em;
+  --text-subsection--font-weight: 600;
+
+  /* Figures */
+  --text-stat: clamp(2.25rem, 1.47rem + 3.48vw, 4.25rem); /* 36 → 68 */
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -0.04em;
+  --text-stat--font-weight: 500;
+
+  --text-stat-suffix: clamp(1.25rem, 0.91rem + 1.52vw, 2.125rem); /* 20 → 34 */
+  --text-stat-suffix--line-height: 1;
+
+  --text-stat-sm: clamp(1.75rem, 1.46rem + 1.3vw, 2.5rem); /* 28 → 40 */
+  --text-stat-sm--line-height: 1.05;
+  --text-stat-sm--letter-spacing: -0.03em;
+  --text-stat-sm--font-weight: 500;
+
+  /* Prose */
+  --text-lede: clamp(1.125rem, 1.05rem + 0.33vw, 1.3125rem); /* 18 → 21 */
+  --text-lede--line-height: 1.5;
+
+  --text-item: 1.1875rem; /* 19 */
+  --text-item--line-height: 1.3;
+  --text-item--font-weight: 500;
+
+  --text-body-lg: 1.0625rem; /* 17 */
+  --text-body-lg--line-height: 1.55;
+
+  --text-body-sm: 0.9375rem; /* 15 */
+  --text-body-sm--line-height: 1.5;
+
+  --text-meta: 0.8125rem; /* 13 */
+  --text-meta--line-height: 1.4;
+
+  --text-label: 0.6875rem; /* 11 */
+  --text-label--line-height: 1.4;
+
+  --text-micro: 0.625rem; /* 10 */
+  --text-micro--line-height: 1.4;
+
+  /* Tracking used by the mono label styles */
+  --tracking-meta: 0.06em;
+  --tracking-button: 0.12em;
+  --tracking-label: 0.14em;
+  --tracking-caps: 0.16em;
 }
 
-a {
-  color: var(--foreground);
-  text-decoration: none;
-}
-a:hover {
-  color: var(--accent);
+/* The page shell: one place that owns max width and the fluid side gutter. */
+@utility shell {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
 }
 
-.u-rule {
-  border: 0;
-  border-top: 1px solid var(--border);
-  margin: 0;
+/* A mono eyebrow/label: size, tracking and casing in one utility. */
+@utility label-caps {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
-.u-hair {
-  border: 0;
-  border-top: 1px solid var(--border-subtle);
-  margin: 0;
+
+@utility label-micro {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
-.u-row:hover {
-  background: var(--hover);
+
+/* Element defaults belong in @layer base and the .u-* helpers in
+   @layer components. Unlayered CSS outranks every Tailwind layer no matter
+   the specificity, so a bare `a { color: ... }` rule used to beat utilities:
+   `bg-foreground text-background` on a link rendered as invisible dark-on-dark
+   text. Layered, a utility on the element always wins — which is also why
+   these classes no longer need `!` overrides at the call site. */
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+  }
+
+  a {
+    color: var(--foreground);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--accent);
+  }
 }
-.u-lnk {
-  border-bottom: 1px solid var(--border);
-}
-.u-lnk:hover {
-  border-bottom-color: var(--accent);
+
+@layer components {
+  .u-rule {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+  .u-hair {
+    border: 0;
+    border-top: 1px solid var(--border-subtle);
+    margin: 0;
+  }
+  .u-row:hover {
+    background: var(--hover);
+  }
+  .u-lnk {
+    border-bottom: 1px solid var(--border);
+  }
+  .u-lnk:hover {
+    border-bottom-color: var(--accent);
+  }
 }

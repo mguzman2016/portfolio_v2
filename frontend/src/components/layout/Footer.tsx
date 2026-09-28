@@ -1,15 +1,15 @@
 export function Footer() {
   return (
-    <div className="mt-[72px] border-t border-border pt-[22px] pb-10 flex justify-between items-baseline font-mono text-[11px] text-muted tracking-[0.06em]">
+    <div className="mt-block border-t border-border pt-5.5 pb-10 flex flex-col gap-3 font-mono text-label text-muted tracking-meta sm:flex-row sm:justify-between sm:items-baseline">
       <span>MIGUEL GUZMÁN · 2026</span>
-      <span className="flex gap-[22px]">
+      <span className="flex flex-wrap gap-x-5.5 gap-y-2">
         <a href="#" className="u-lnk">
           GitHub
         </a>
         <a href="#" className="u-lnk">
           LinkedIn
         </a>
-        <a href="#" className="u-lnk">
+        <a href="#" className="u-lnk break-all">
           azuymiguel95@gmail.com
         </a>
       </span>
