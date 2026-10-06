@@ -3,7 +3,9 @@ import { Masthead } from "@/components/layout/Masthead"
 import { Footer } from "@/components/layout/Footer"
 import { Page } from "@/components/layout/Page"
 import { cn } from "@/lib/utils"
-import { headline, titleCounts, cities, movers, pipelineStages } from "./data/data"
+import { titleCounts, cities, movers, pipelineStages } from "./data/data"
+import Hero from "./components/Hero/Hero"
+import NumbersBand from "./components/NumbersBand"
 
 export default function Home() {
   return (
@@ -11,77 +13,10 @@ export default function Home() {
       <Masthead active="index" />
 
       {/* HERO */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-6 gap-y-12 pt-14 pb-16">
-        <div className="lg:col-span-8">
-          <div className="font-mono text-label tracking-caps uppercase text-accent mb-7">
-            A standing survey of the Swiss engineering market
-          </div>
-          <h1 className="m-0 text-display max-w-[15ch]">
-            Every engineering role posted in four Swiss cities, collected on a schedule.
-          </h1>
-          <p className="font-serif text-lede text-muted-strong max-w-[52ch] mt-8">
-            I scrape LinkedIn on a cadence, land the raw JSON in S3, and model it into a star
-            schema with dbt and DuckDB. What follows is the whole warehouse, opened up — the
-            counts, the gaps, and the parts that are still honestly incomplete.
-          </p>
-        </div>
-        <div className="lg:col-span-4 flex flex-col lg:pt-1.5">
-          <hr className="u-rule" />
-          <div className="flex justify-between gap-4 py-3.5 font-mono text-xs">
-            <span className="text-muted shrink-0">LAST RUN</span>
-            <span className="text-right">2026-06-07 20:00 UTC</span>
-          </div>
-          <hr className="u-hair" />
-          <div className="flex justify-between gap-4 py-3.5 font-mono text-xs">
-            <span className="text-muted shrink-0">CADENCE</span>
-            <span className="text-right">EventBridge → ECS Fargate</span>
-          </div>
-          <hr className="u-hair" />
-          <div className="flex justify-between gap-4 py-3.5 font-mono text-xs">
-            <span className="text-muted shrink-0">DBT TESTS</span>
-            <span className="text-accent text-right">22 / 22 passing</span>
-          </div>
-          <hr className="u-rule" />
-          <div className="flex items-center gap-2.5 pt-5.5 font-mono text-label tracking-[0.04em] text-muted-strong flex-wrap">
-            <span className="border border-border px-2.5 py-1.25">LinkedIn</span>
-            <span className="text-faint">→</span>
-            <span className="border border-border px-2.5 py-1.25">S3 JSONL</span>
-            <span className="text-faint">→</span>
-            <span className="border border-border px-2.5 py-1.25">DuckDB</span>
-            <span className="text-faint">→</span>
-            <span className="border border-accent text-accent px-2.5 py-1.25">dbt marts</span>
-          </div>
-        </div>
-      </div>
+      <Hero />
 
       {/* NUMBERS BAND */}
-      {/* Two up on small screens, four up from lg. A cell's horizontal padding is
-          0 on the side where it meets the page edge and 8 where it meets a
-          neighbour, so the dividers stay centred in both layouts. */}
-      <hr className="u-rule" />
-      <div className="grid grid-cols-2 lg:grid-cols-4">
-        {headline.map((stat, i) => (
-          <div
-            key={stat.label}
-            className={cn(
-              "py-8 border-border",
-              i % 2 === 0 ? "pr-5 sm:pr-8" : "pl-5 sm:pl-8 border-l",
-              i < 2 && "border-b lg:border-b-0",
-              i === 1 && "lg:pr-8",
-              i === 2 && "lg:pl-8 lg:border-l"
-            )}
-          >
-            <div
-              className={cn("text-stat tabular-nums", stat.accent && "text-accent")}
-            >
-              {stat.value}
-              {stat.suffix && <span className="text-stat-suffix">{stat.suffix}</span>}
-            </div>
-            <div className="label-caps text-muted mt-3">{stat.label}</div>
-          </div>
-        ))}
-      </div>
-      <hr className="u-rule" />
+      <NumbersBand />
 
       {/* CITY SPLIT + TITLES */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-6 gap-y-12 pt-16">
